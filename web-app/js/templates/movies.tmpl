@@ -1,0 +1,24 @@
+
+	<table>
+		<thead>
+			<tr>
+				<th>Rank</th>
+				<th>Rating</th>
+				<th>Title</th>
+				<th>Votes</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% _.each(movies, function(movie){%>
+			<tr>
+				<td><%= movie.rank %></td>
+				<td><%= movie.rating%></td>
+				<td><%= movie.title%></td>
+				<td><%= movie.votes%></td>
+
+			</tr>
+			<%});%>
+		</tbody>
+
+	</table>
+</div><!--end of movies table -->
