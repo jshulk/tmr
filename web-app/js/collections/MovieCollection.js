@@ -7,7 +7,7 @@ define([
 		model: Movie,
 		parse: function(response){
 			
-			this.currentPage = response.currentPageNum;
+			this.currentPageNum = response.currentPageNum;
 			this.perPage = response.perPage;
 			this.offset = response.offset;
 			this.totalPages = response.totalPages;

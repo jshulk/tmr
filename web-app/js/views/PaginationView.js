@@ -1,4 +1,4 @@
-define(["backbone"], function(Backbone){
+define(["backbone", "tpl!templates/perpage.tmpl"], function(Backbone, perPageTemplate){
 
 	return Backbone.View.extend({
 		el : ".pagination-bar",
@@ -8,8 +8,8 @@ define(["backbone"], function(Backbone){
 			var defaults = {
 				containerID: "",
 				first: false,
-				previous: "← previous",
-				next: "next →",
+				previous: "&lt;",
+				next: "&gt;",
 				last: false,
 		        links: "numeric", // blank || title
 		        startPage: 1,
@@ -26,6 +26,7 @@ define(["backbone"], function(Backbone){
 		        animation: "", // http://daneden.me/animate/ - any entrance animations
 		        fallback: 400,
 		        minHeight: true,
+		        perPageOptions:[5,10,15],
 		        callback: undefined // function( pages, items ) { }
 		    };
 
@@ -43,7 +44,17 @@ define(["backbone"], function(Backbone){
 			this.listenTo(this.collection, "reset", this.render);
 		},
 		events:{
-			"click a" : "getNextPage"
+			"click a" : "getNextPage",
+			"change .items-perpage" : "changeItemsPerPage"
+		},
+		changeItemsPerPage: function(e){
+			var $target = $(e.target);
+			this.collection.fetch({
+				reset: true,
+				data: {
+					perPage: $target.val()
+				}
+			});
 		},
 		render: function(){
 			//We have updated the parse method of the collection.
@@ -60,7 +71,10 @@ define(["backbone"], function(Backbone){
 			//not required, we would add the styles to a separate stylesheet.
 			this.setStyles();
 			var navhtml = this.createNav();
-			this.$el.html( navhtml );
+			this.$el.find(".nav-bar").html( navhtml );
+			var ops = this.options.perPageOptions;
+			var perPage = this.perPage;
+			this.$el.find(".select-box").html(perPageTemplate({ops:ops, perPage:perPage}));
 			this.cacheNavElements();		
 			this.paginate(this.currentPageNum);
 			this.setMinHeight();
@@ -115,7 +129,7 @@ define(["backbone"], function(Backbone){
 		},
 		cacheNavElements: function(){
 			this.nav = this.nav || {};
-			this.holder = this.$el;
+			this.holder = this.$el.find('.nav-bar');
 
 			this.nav.first = this.holder.find("a.jp-first");
 			this.nav.last = this.holder.find("a.jp-last");

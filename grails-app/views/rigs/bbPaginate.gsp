@@ -8,8 +8,13 @@
 <body>
   <div id = "movies">
   	<div class = "pagination-bar holder">
+  		<div class = 'nav-bar'>
   		
-  	</div>
+  		</div>
+  		<div class = 'select-box'>
+  			
+  		</div>
+  	</div><!-- end of holder div -->
   	<div id = "movies-table">
 
   	</div><!--end of movies table div -->
