@@ -6,6 +6,10 @@ class UrlMappings {
 			action = [GET:"index", POST:"save", PUT:"update", DELETE:"delete"]
 		}
 		
+		"/rigs"(controller:'books', parseRequest:true){
+			action = [GET:"index", POST:"save", PUT:"update", DELETE:"delete"]
+		}
+		
 		"/$controller/$action?/$id?"{
 			constraints {
 				// apply constraints here

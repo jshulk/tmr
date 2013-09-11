@@ -43,4 +43,8 @@ class RigsController {
 	}
 }
 	
+	def testing(){
+		
+	}
+	
 }
